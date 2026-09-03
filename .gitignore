@@ -1,0 +1,25 @@
+node_modules/
+*.tgz
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.local
+
+# Meeting recordings and generated documents
+meeting-assistant-data/
+*.wav
+*.mp3
+.history/
+
+# Logs and editor files
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Temporary files
+*.tmp
+*.part

@@ -1,0 +1,56 @@
+{
+  "name": "@meeting-assistant/dsh-meeting-minutes",
+  "version": "0.7.1",
+  "description": "Independent AI meeting assistant with recording, browser transcription, web agent, history, Markdown, and verbatim TTS",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./core": "./minutes-core.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "meeting-runtime.js",
+    "model-service.js",
+    "volcengine-voice.js",
+    "minutes-core.js",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "docs"
+  ],
+  "scripts": {
+    "test": "node test.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-runtime",
+        "@deepseek-ai/dsh-client-ui-layout"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "ws": "^8.18.3"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-credentials": "^0.1.1-rc.2"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh-plugin",
+    "meeting-minutes",
+    "voice-agent"
+  ],
+  "license": "MIT"
+}
