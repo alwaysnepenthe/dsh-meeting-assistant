@@ -43,6 +43,15 @@
 
 ## 安装
 
+### 使用 Release 安装包（推荐）
+
+1. 从 [v0.7.1 Release](https://github.com/alwaysnepenthe/dsh-meeting-assistant/releases/tag/v0.7.1) 下载 `meeting-assistant-dsh-meeting-minutes-0.7.1.tgz`。
+2. 在安装包所在目录执行：
+
+```powershell
+npx.cmd @deepseek-ai/dsh plugin --profile web add .\meeting-assistant-dsh-meeting-minutes-0.7.1.tgz
+```
+
 ### 从源码安装
 
 ```powershell
