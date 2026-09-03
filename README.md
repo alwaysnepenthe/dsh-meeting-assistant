@@ -46,7 +46,7 @@
 ### 从源码安装
 
 ```powershell
-git clone https://github.com/<your-name>/dsh-meeting-assistant.git
+git clone https://github.com/alwaysnepenthe/dsh-meeting-assistant.git
 cd dsh-meeting-assistant
 npm install
 npm test
