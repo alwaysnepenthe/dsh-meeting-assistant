@@ -19,6 +19,10 @@ try {
 
   $npx = (Get-Command npx.cmd -ErrorAction SilentlyContinue)?.Source
   if (-not $npx) { $npx = (Get-Command npx -ErrorAction SilentlyContinue)?.Source }
+  if (-not $npx) {
+    $defaultNpx = Join-Path $env:ProgramFiles 'nodejs\npx.cmd'
+    if (Test-Path -LiteralPath $defaultNpx) { $npx = $defaultNpx }
+  }
   if (-not $npx) { throw '未找到 npx。请先安装 Node.js 20 或更高版本。' }
 
   Write-Host '正在安装插件…' -ForegroundColor Cyan
