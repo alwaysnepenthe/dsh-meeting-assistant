@@ -26,7 +26,11 @@ try {
   if (-not $npx) { throw '未找到 npx。请先安装 Node.js 20 或更高版本。' }
 
   Write-Host '正在安装插件…' -ForegroundColor Cyan
-  & $npx '@deepseek-ai/dsh' 'plugin' '--profile' 'web' 'add' $packagePath
+  $previousNpmCache = $env:npm_config_cache
+  $env:npm_config_cache = Join-Path $temporaryDirectory 'npm-cache'
+  & $npx '--yes' '@deepseek-ai/dsh' 'plugin' '--profile' 'web' 'add' $packagePath
+  if ($null -eq $previousNpmCache) { Remove-Item Env:npm_config_cache -ErrorAction SilentlyContinue }
+  else { $env:npm_config_cache = $previousNpmCache }
   if ($LASTEXITCODE -ne 0) { throw "DSH 插件安装失败，退出码：$LASTEXITCODE" }
 
   Write-Host '安装完成。请重启 DeepSeek Harness Web，并按 Ctrl + F5 刷新页面。' -ForegroundColor Green
