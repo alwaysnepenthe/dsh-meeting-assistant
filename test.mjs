@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { apply } from './index.js'
 import { LocalAudioRecorder, MeetingRuntime } from './meeting-runtime.js'
+import { MeetingModelConfiguration } from './model-config.js'
 import { collectAudioFromSse } from './volcengine-voice.js'
 import {
   buildMeetingMinutes,
@@ -99,12 +100,43 @@ assert.equal(status.ready, true)
 assert.equal(status.asrConfigured, true)
 assert.equal(status.recommendedAsrMode, 'browser')
 
+const defaultModelRuntime = new MeetingRuntime({
+  agentDefaultModel: { currentSelection: () => ({ provider: 'default-provider', model: 'default-model' }) },
+  llm: {
+    listProviders() { return [{ id: 'first-provider' }, { id: 'default-provider' }] },
+    async listModels(provider) {
+      return provider === 'default-provider' ? [{ id: 'first-model' }, { id: 'default-model' }] : [{ id: 'first-model' }]
+    },
+  },
+})
+assert.deepEqual(await defaultModelRuntime.model.resolveSelection(), { provider: 'default-provider', model: 'default-model' })
+
 await assert.rejects(
   () => registeredTool.execute({ title: '缺少字段' }, { signal: controller.signal }),
   /transcript must be a string/,
 )
 
 const runtimeOutputDir = await mkdtemp(path.join(tmpdir(), 'fando-meeting-runtime-'))
+const credentialValues = new Map()
+const modelConfiguration = new MeetingModelConfiguration({
+  credentials: {
+    async describe(ref) { return { configured: credentialValues.has(String(ref)), writable: true } },
+    async set(ref, value) { credentialValues.set(String(ref), value) },
+    async resolve(ref) { return credentialValues.has(String(ref)) ? { value: credentialValues.get(String(ref)), source: 'file' } : undefined },
+  },
+  logger: { warn() {} },
+}, runtimeOutputDir)
+const configuredModels = await modelConfiguration.save({
+  text: { mode: 'custom', baseUrl: 'https://models.example.test/v1/', model: 'chat-model', apiKey: 'text-secret' },
+  tts: { baseUrl: 'https://voice.example.test/v1', model: 'speech-model', voice: 'alloy', apiKey: 'tts-secret' },
+  stt: { baseUrl: 'https://voice.example.test/v1', model: 'whisper-model', apiKey: 'stt-secret' },
+})
+assert.equal(configuredModels.text.configured, true)
+assert.equal(configuredModels.tts.configured, true)
+assert.equal(configuredModels.stt.configured, true)
+assert.equal(JSON.stringify(configuredModels).includes('secret'), false)
+assert.equal((await readFile(path.join(runtimeOutputDir, '.model-settings.json'), 'utf8')).includes('secret'), false)
+await modelConfiguration.save({ text: { mode: 'dsh' } })
 const wavRecorder = new LocalAudioRecorder({ outputDir: runtimeOutputDir, title: '录音验证', meetingId: 'wav-test-12345678' })
 await wavRecorder.start()
 wavRecorder.appendPcm(new Int16Array([100, -100]))

@@ -20,10 +20,11 @@ window.__ModuleLoader__.load({
       .fm-home{max-width:700px;margin:52px auto}.fm-hero{padding:34px;border-radius:24px;background:linear-gradient(145deg,#f1f0ff,#f6f7ff 52%,#eef7ff);border:1px solid #dedfff;box-shadow:0 18px 50px rgba(70,73,150,.08)}.fm-hero h3{font-size:28px;margin:0 0 10px}.fm-hero p{color:var(--dsw-alias-label-secondary,#606b7b);line-height:1.75;margin:0 0 24px}
       .fm-field{display:flex;flex-direction:column;gap:7px;margin:14px 0}.fm-field label{font-size:13px;font-weight:650}.fm-input,.fm-textarea{box-sizing:border-box;width:100%;border:1px solid var(--dsw-alias-border-l1,#d9e0eb);background:var(--dsw-alias-bg-base,#fff);color:inherit;border-radius:12px;padding:12px 13px;outline:none}.fm-input:focus,.fm-textarea:focus{border-color:#5b5ce2;box-shadow:0 0 0 3px rgba(91,92,226,.12)}
       .fm-status{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}.fm-pill{font-size:12px;padding:5px 9px;border-radius:99px;background:#eef1f6;color:#667085}.fm-pill.ok{background:#e9f8ef;color:#16834b}.fm-pill.bad{background:#ffeded;color:#b83333}
-      .fm-grid{height:100%;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(340px,.92fr);gap:16px}.fm-card{background:var(--dsw-alias-bg-base,#fff);border:1px solid var(--dsw-alias-border-l1,#e2e6ee);border-radius:18px;display:flex;flex-direction:column;min-height:0;overflow:hidden}.fm-card-title{padding:14px 16px;border-bottom:1px solid var(--dsw-alias-border-l1,#e8eaf0);font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}.fm-scroll{padding:15px;overflow:auto;flex:1;min-height:0}.fm-segment{padding:10px 0;border-bottom:1px solid var(--dsw-alias-border-l1,#eef0f4);line-height:1.6}.fm-segment b{font-size:12px;color:#5b5ce2;margin-right:8px}.fm-partial{opacity:.55;font-style:italic}.fm-empty{color:var(--dsw-alias-label-tertiary,#8290a4);padding:30px;text-align:center}
+      .fm-grid{height:100%;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.75fr);gap:16px}.fm-card{background:var(--dsw-alias-bg-base,#fff);border:1px solid var(--dsw-alias-border-l1,#e2e6ee);border-radius:18px;display:flex;flex-direction:column;min-height:0;overflow:hidden}.fm-card-title{padding:14px 16px;border-bottom:1px solid var(--dsw-alias-border-l1,#e8eaf0);font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}.fm-scroll{padding:15px;overflow:auto;flex:1;min-height:0}.fm-segment{padding:10px 0;border-bottom:1px solid var(--dsw-alias-border-l1,#eef0f4);line-height:1.6}.fm-segment b{font-size:12px;color:#5b5ce2;margin-right:8px}.fm-partial{opacity:.55;font-style:italic}.fm-empty{color:var(--dsw-alias-label-tertiary,#8290a4);padding:30px;text-align:center}
       .fm-turn{margin-bottom:15px}.fm-q{font-weight:700;margin-bottom:6px}.fm-a{line-height:1.7;white-space:pre-wrap;background:#f0f2ff;border-radius:12px;padding:11px 12px}.fm-ask{border-top:1px solid var(--dsw-alias-border-l1,#e7e9ef);padding:12px;display:flex;gap:8px}.fm-ask .fm-input{margin:0}.fm-controls{display:flex;align-items:center;gap:10px}.fm-record-dot{width:9px;height:9px;border-radius:50%;background:#ef4444;box-shadow:0 0 0 0 rgba(239,68,68,.5);animation:fmPulse 1.5s infinite}.fm-level{height:6px;width:70px;background:#e7ebf2;border-radius:99px;overflow:hidden}.fm-level i{height:100%;display:block;background:#19a465;transition:width .1s}
       .fm-error{margin:12px 0;padding:10px 12px;border-radius:10px;background:#ffeded;color:#b72e2e;font-size:13px}.fm-warning{margin:10px 0;padding:9px 11px;border-radius:10px;background:#fff4dd;color:#8a5a00;font-size:12px}.fm-doc{line-height:1.75;font-size:14px}.fm-doc h2{font-size:19px;margin:24px 0 10px}.fm-doc h3{font-size:16px;margin:20px 0 8px}.fm-doc p{margin:8px 0}.fm-doc ul{padding-left:22px}.fm-doc li{margin:6px 0}.fm-doc-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.fm-path{font-size:12px;color:var(--dsw-alias-label-tertiary,#7d8999);word-break:break-all}.fm-source{font-size:12px;margin-top:7px}.fm-source a{color:#5b5ce2}.fm-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-      .fm-history{height:100%;display:grid;grid-template-columns:310px minmax(0,1fr);gap:16px}.fm-library{background:#f9fafc}.fm-library-head{padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px}.fm-library-copy{min-width:0}.fm-library-head h3{margin:0 0 4px;font-size:17px}.fm-library-head p{margin:0;color:#8992a3;font-size:12px}.fm-library-head .fm-ghost{padding:7px 11px;flex:0 0 auto}.fm-history-item{width:100%;text-align:left;border:1px solid transparent;background:transparent;color:inherit;border-radius:14px;padding:13px;margin-bottom:6px;cursor:pointer;display:grid;grid-template-columns:38px 1fr;gap:11px}.fm-history-item:hover{background:#f0f2f7}.fm-history-item.active{background:#fff;border-color:#dfe3ec;box-shadow:0 8px 24px rgba(27,39,70,.07)}.fm-history-icon{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#6466e8,#a06cf0);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px}.fm-history-item b{display:block;margin-bottom:4px}.fm-history-meta{font-size:12px;color:#8891a1;line-height:1.55}.fm-detail{overflow:hidden}.fm-detail-hero{padding:20px 22px;background:linear-gradient(135deg,#fafaff,#f3f5ff);border-bottom:1px solid #e7e9f0}.fm-detail-hero h3{margin:0 0 6px;font-size:22px}.fm-detail-meta{font-size:13px;color:#7d8798;margin-bottom:15px}.fm-audio{width:100%;height:38px;margin-top:12px}.fm-tabs{display:flex;gap:6px;padding:10px 18px;border-bottom:1px solid #e9ebf1}.fm-tab{padding:7px 12px;border-color:transparent}.fm-tab.active{background:#eeefff;color:#4f51cf;font-weight:650}.fm-detail-content{padding:4px 22px 30px;overflow:auto;flex:1}.fm-event{position:relative;padding:13px 0 13px 24px;border-left:2px solid #e7e9f0;margin-left:7px}.fm-event:before{content:'';position:absolute;left:-6px;top:18px;width:10px;height:10px;border-radius:50%;background:#8b8ce8}.fm-event b{display:block;margin-bottom:4px}.fm-event .fm-history-meta{margin-left:8px;font-weight:400}.fm-settings{max-width:620px;margin:18px auto}.fm-setting-row{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:16px 0;border-bottom:1px solid #eceef3}.fm-setting-copy b{display:block;margin-bottom:5px}.fm-setting-copy span{font-size:13px;color:#7a8495}.fm-switch{width:42px;height:24px;accent-color:#5b5ce2}.fm-voice-stop{border-color:#ef8d91;color:#c3363e;background:#fff5f5}
+      .fm-history{height:100%;display:grid;grid-template-columns:310px minmax(0,1fr);gap:16px}.fm-library{background:#f9fafc}.fm-library-head{padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px}.fm-library-copy{min-width:0}.fm-library-head h3{margin:0 0 4px;font-size:17px}.fm-library-head p{margin:0;color:#8992a3;font-size:12px}.fm-library-head .fm-ghost{padding:7px 11px;flex:0 0 auto}.fm-history-item{width:100%;text-align:left;border:1px solid transparent;background:transparent;color:inherit;border-radius:14px;padding:13px;margin-bottom:6px;cursor:pointer;display:grid;grid-template-columns:38px 1fr;gap:11px}.fm-history-item:hover{background:#f0f2f7}.fm-history-item.active{background:#fff;border-color:#dfe3ec;box-shadow:0 8px 24px rgba(27,39,70,.07)}.fm-history-icon{width:38px;height:38px;border-radius:12px;background:linear-gradient(145deg,#6466e8,#a06cf0);color:#fff;display:flex;align-items:center;justify-content:center;font-size:17px}.fm-history-item b{display:block;margin-bottom:4px}.fm-history-meta{font-size:12px;color:#8891a1;line-height:1.55}.fm-detail{overflow:hidden}.fm-detail-hero{padding:20px 22px;background:linear-gradient(135deg,#fafaff,#f3f5ff);border-bottom:1px solid #e7e9f0}.fm-detail-hero h3{margin:0 0 6px;font-size:22px}.fm-detail-meta{font-size:13px;color:#7d8798;margin-bottom:15px}.fm-audio{width:100%;height:38px;margin-top:12px}.fm-tabs{display:flex;gap:6px;padding:10px 18px;border-bottom:1px solid #e9ebf1}.fm-tab{padding:7px 12px;border-color:transparent}.fm-tab.active{background:#eeefff;color:#4f51cf;font-weight:650}.fm-detail-content{padding:4px 22px 30px;overflow:auto;flex:1}.fm-event{position:relative;padding:13px 0 13px 24px;border-left:2px solid #e7e9f0;margin-left:7px}.fm-event:before{content:'';position:absolute;left:-6px;top:18px;width:10px;height:10px;border-radius:50%;background:#8b8ce8}.fm-event b{display:block;margin-bottom:4px}.fm-event .fm-history-meta{margin-left:8px;font-weight:400}.fm-settings{max-width:820px;margin:18px auto}.fm-setting-row{display:flex;justify-content:space-between;gap:20px;align-items:center;padding:16px 0;border-bottom:1px solid #eceef3}.fm-setting-copy b{display:block;margin-bottom:5px}.fm-setting-copy span{font-size:13px;color:#7a8495}.fm-switch{width:42px;height:24px;accent-color:#5b5ce2}.fm-voice-stop{border-color:#ef8d91;color:#c3363e;background:#fff5f5}.fm-model-section{margin:18px 0;padding:16px;border:1px solid #e2e6ee;border-radius:15px;background:#fafbfe}.fm-model-section h4{margin:0 0 5px;font-size:15px}.fm-model-section>p{margin:0 0 12px;color:#7a8495;font-size:12px}.fm-model-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fm-model-grid .fm-field{margin:5px 0}.fm-model-grid .wide{grid-column:1/-1}.fm-save-row{display:flex;align-items:center;gap:12px;margin-top:18px}
+      .fm-input,.fm-textarea{border-radius:16px;padding:12px 14px}.fm-model-section{padding:0;border-radius:18px;overflow:visible}.fm-model-head{width:100%;border:0;background:transparent;color:inherit;padding:16px;display:flex;align-items:center;gap:11px;text-align:left;cursor:pointer}.fm-model-status{width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:#eef0f5;color:#8791a2;font-weight:800}.fm-model-status.ok{background:#e7f8ee;color:#158348}.fm-model-title{flex:1}.fm-model-title h4{margin:0 0 4px}.fm-model-title p{margin:0;color:#7a8495;font-size:12px;line-height:1.5}.fm-model-toggle{width:32px;height:32px;border-radius:50%;background:#fff;border:1px solid #e1e5ee;display:inline-flex;align-items:center;justify-content:center}.fm-model-content{padding:0 16px 16px}.fm-soft-select{position:relative}.fm-soft-select-button{box-sizing:border-box;width:100%;min-height:46px;border:1px solid #dfe3ec;border-radius:999px;padding:12px 52px 12px 17px;background:linear-gradient(180deg,#fff,#fafbfe);color:inherit;text-align:left;font:inherit;cursor:pointer;position:relative}.fm-soft-select-button:focus{outline:none;border-color:#5b5ce2;box-shadow:0 0 0 3px rgba(91,92,226,.12)}.fm-soft-select-chevron{position:absolute;right:21px;top:50%;width:9px;height:9px;border-right:1.7px solid #687386;border-bottom:1.7px solid #687386;transform:translateY(-70%) rotate(45deg);transform-origin:center;transition:transform .18s ease}.fm-soft-select-chevron.open{transform:translateY(-25%) rotate(225deg)}.fm-soft-select-menu{position:absolute;z-index:30;left:0;right:0;top:calc(100% + 7px);padding:7px;background:#fff;border:1px solid #e1e5ee;border-radius:18px;box-shadow:0 18px 46px rgba(25,35,65,.16)}.fm-soft-select-option{width:100%;border:0;border-radius:13px;padding:11px 13px;background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer}.fm-soft-select-option:hover,.fm-soft-select-option.active{background:#eff0ff;color:#4f51cf}
       @keyframes fmPulse{70%{box-shadow:0 0 0 8px rgba(239,68,68,0)}}
       @media(max-width:760px){.fm-grid{grid-template-columns:1fr;grid-template-rows:1fr 1fr}.fm-history{grid-template-columns:1fr;grid-template-rows:230px 1fr}.fm-panel{width:calc(100vw - 20px);height:calc(100vh - 20px)}.fm-backdrop{padding:10px}.fm-root{right:12px;bottom:12px}.fm-detail-hero{padding:16px}.fm-ask{flex-wrap:wrap}}
     `
@@ -301,7 +302,7 @@ window.__ModuleLoader__.load({
         h('div', { className: 'fm-status' },
           h(StatusPill, { ok: hasModel }, hasModel ? 'AI 助手已就绪' : 'AI 模型未配置'),
           h(StatusPill, { ok: Boolean(config?.agent?.webSearchAvailable) }, config?.agent?.webSearchAvailable ? '联网能力已就绪' : '联网搜索不可用'),
-          h(StatusPill, { ok: Boolean(config?.voice?.configured) }, config?.voice?.configured ? '语音回答已就绪' : '语音回答未配置'),
+          h(StatusPill, { ok: true }, config?.voice?.configured ? '文字与语音回答已就绪' : '文字回答已就绪（语音未配置）'),
         ),
         !hasModel && h('div', { className: 'fm-warning' }, '请先在 DeepSeek Harness 中启用一个模型。'),
         !browserAsrSupported && h('div', { className: 'fm-warning' }, '当前浏览器不支持连续语音识别，请使用最新版 Chrome 或 Edge。'),
@@ -317,7 +318,7 @@ window.__ModuleLoader__.load({
       ))
     }
 
-    function LiveMeeting({ meeting, level, question, setQuestion, onAsk, asking, stopping, error, settings, onVoiceAsk, listening, voiceState, onStopVoice }) {
+    function LiveMeeting({ meeting, level, question, setQuestion, onAsk, asking, stopping, error, settings, voiceState, onStopVoice }) {
       const segments = meeting?.segments || []
       const turns = meeting?.turns || []
       return h('div', { className: 'fm-grid' },
@@ -338,6 +339,7 @@ window.__ModuleLoader__.load({
               h('div', { className: 'fm-q' }, `问：${turn.question}`),
               h('div', { className: 'fm-a' }, turn.answer),
               Array.isArray(turn.sources) && turn.sources.length > 0 && h('div', { className: 'fm-source' }, '联网来源：', turn.sources.slice(0, 4).map((source, index) => h(React.Fragment, { key: source.url || index }, index > 0 ? ' · ' : '', h('a', { href: source.url || source.href, target: '_blank', rel: 'noreferrer' }, source.title || source.name || `来源 ${index + 1}`)))),
+              turn.searchWarning && h('div', { className: 'fm-warning' }, '联网搜索暂不可用，本次已自动使用文本模型回答。'),
             )),
             asking && h('div', { className: 'fm-a' }, '模型正在回答…'),
             error && h('div', { className: 'fm-error' }, error),
@@ -346,7 +348,6 @@ window.__ModuleLoader__.load({
           h('div', { className: 'fm-ask' },
             h('input', { className: 'fm-input', value: question, placeholder: '问会议内容，也可以问天气、新闻或其他问题…', disabled: asking || stopping, onChange: (event) => setQuestion(event.target.value), onKeyDown: (event) => { if (event.key === 'Enter') onAsk() } }),
             voiceState !== 'idle' && h('button', { className: 'fm-ghost fm-voice-stop', onClick: onStopVoice }, voiceState === 'generating' ? '停止生成' : '停止播报'),
-            h('button', { className: 'fm-ghost', disabled: asking || stopping || listening, onClick: onVoiceAsk }, listening ? '聆听中…' : '语音提问'),
             h('button', { className: 'fm-primary', disabled: asking || stopping || !question.trim(), onClick: () => onAsk() }, '提问'),
           ),
         ),
@@ -428,8 +429,84 @@ window.__ModuleLoader__.load({
       return h('article', { className: 'fm-doc' }, nodes)
     }
 
-    function SettingsPanel({ settings, setSettings, config, onBack }) {
+    function SoftSelect({ value, options, onChange, placeholder }) {
+      const [open, setOpen] = React.useState(false)
+      const selected = options.find((item) => item.value === value)
+      return h('div', {
+        className: 'fm-soft-select',
+        onBlur: (event) => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false) },
+      },
+      h('button', { type: 'button', className: 'fm-soft-select-button', 'aria-expanded': open, onClick: () => setOpen((current) => !current) },
+        selected?.label || placeholder || '请选择', h('span', { className: `fm-soft-select-chevron ${open ? 'open' : ''}`, 'aria-hidden': true })),
+      open && h('div', { className: 'fm-soft-select-menu', role: 'listbox' }, options.map((item) => h('button', {
+        type: 'button', role: 'option', 'aria-selected': item.value === value,
+        className: `fm-soft-select-option ${item.value === value ? 'active' : ''}`, key: item.value,
+        onMouseDown: (event) => event.preventDefault(),
+        onClick: () => { onChange(item.value); setOpen(false) },
+      }, item.label))))
+    }
+
+    function SettingsPanel({ settings, setSettings, config, setConfig, onBack }) {
       const update = (patch) => setSettings((current) => ({ ...current, ...patch }))
+      const [draft, setDraft] = React.useState({
+        text: { mode: 'dsh', dshProvider: '', dshModel: '', baseUrl: '', model: '', apiKey: '' },
+        tts: { baseUrl: '', model: '', voice: 'alloy', apiKey: '' },
+        stt: { baseUrl: '', model: '', apiKey: '' },
+      })
+      const [savingModels, setSavingModels] = React.useState(false)
+      const [modelMessage, setModelMessage] = React.useState('')
+      const [expandedModels, setExpandedModels] = React.useState({ text: true, tts: false, stt: false })
+      React.useEffect(() => {
+        if (!config?.models) return
+        setDraft({
+          text: { mode: config.models.text?.mode || 'dsh', dshProvider: config.models.text?.dshProvider || '', dshModel: config.models.text?.dshModel || '', baseUrl: config.models.text?.baseUrl || '', model: config.models.text?.model || '', apiKey: '' },
+          tts: { baseUrl: config.models.tts?.baseUrl || '', model: config.models.tts?.model || '', voice: config.models.tts?.voice || 'alloy', apiKey: '' },
+          stt: { baseUrl: config.models.stt?.baseUrl || '', model: config.models.stt?.model || '', apiKey: '' },
+        })
+      }, [config?.models])
+      const updateModel = (kind, patch) => setDraft((current) => ({ ...current, [kind]: { ...current[kind], ...patch } }))
+      const inputField = (kind, field, label, options = {}) => h('div', { className: `fm-field ${options.wide ? 'wide' : ''}` },
+        h('label', null, label),
+        h('input', {
+          className: 'fm-input',
+          type: options.secret ? 'password' : 'text',
+          value: draft[kind][field] || '',
+          placeholder: options.placeholder || '',
+          onChange: (event) => updateModel(kind, { [field]: event.target.value }),
+        }),
+      )
+      const modelSection = (kind, titleText, description, children) => {
+        const configured = Boolean(config?.models?.[kind]?.configured)
+        const expanded = Boolean(expandedModels[kind])
+        return h('section', { className: 'fm-model-section' },
+          h('button', { type: 'button', className: 'fm-model-head', onClick: () => setExpandedModels((current) => ({ ...current, [kind]: !current[kind] })) },
+            h('span', { className: `fm-model-status ${configured ? 'ok' : ''}`, title: configured ? '已配置' : '未配置' }, configured ? '✓' : '○'),
+            h('span', { className: 'fm-model-title' }, h('h4', null, titleText), h('p', null, description)),
+            h('span', { className: 'fm-model-toggle', title: expanded ? '收起' : '展开' }, expanded ? '−' : '+')),
+          expanded && h('div', { className: 'fm-model-content' }, children))
+      }
+      const externalModel = (kind, titleText, description, extra = null) => modelSection(kind, titleText, description,
+        h('div', { className: 'fm-model-grid' },
+          inputField(kind, 'baseUrl', '接口地址', { wide: true, placeholder: '例如：https://api.example.com/v1' }),
+          inputField(kind, 'model', '模型名称', { placeholder: kind === 'stt' ? '例如：whisper-1' : '填写服务提供的模型 ID' }),
+          extra,
+          inputField(kind, 'apiKey', 'API Key', {
+            wide: true,
+            secret: true,
+            placeholder: config?.models?.[kind]?.keyConfigured ? '已安全保存；留空表示不修改' : '输入 API Key',
+          }),
+        ))
+      const saveModels = async () => {
+        setSavingModels(true)
+        setModelMessage('')
+        try {
+          const value = await api('configure-models', { body: draft })
+          setConfig(value)
+          setModelMessage('模型配置已保存。')
+        } catch (reason) {
+          setModelMessage(`保存失败：${reason instanceof Error ? reason.message : String(reason)}`)
+        } finally { setSavingModels(false) }
+      }
       return h('section', { className: 'fm-card fm-settings' },
         h('div', { className: 'fm-card-title' }, '会议助手设置', h('button', { className: 'fm-ghost', style: { marginLeft: 'auto' }, onClick: onBack }, '完成')),
         h('div', { className: 'fm-scroll' },
@@ -441,9 +518,39 @@ window.__ModuleLoader__.load({
             placeholder: '例如：小助手', onChange: (event) => update({ wakeWord: event.target.value.replace(/[，,：:\s]/g, '').slice(0, 12) }),
           })),
           h('div', { className: 'fm-setting-row' },
-            h('div', { className: 'fm-setting-copy' }, h('b', null, '自动语音回答'), h('span', null, config?.voice?.configured ? '把模型生成的文字答案原样朗读出来。' : '云端语音未配置时将自动使用系统朗读。')),
-            h('input', { className: 'fm-switch', type: 'checkbox', checked: settings.autoSpeak, onChange: (event) => update({ autoSpeak: event.target.checked }) })),
-          h('div', { className: 'fm-warning' }, '唤醒词和播报偏好仅保存在当前浏览器中，可随时修改。'),
+            h('div', { className: 'fm-setting-copy' }, h('b', null, '自动语音回答'), h('span', null, config?.voice?.configured ? '把模型生成的文字答案原样朗读出来。' : 'TTS 未配置，唤醒后仍会正常显示文字回答。')),
+            h('input', { className: 'fm-switch', type: 'checkbox', checked: settings.autoSpeak && Boolean(config?.voice?.configured), disabled: !config?.voice?.configured, onChange: (event) => update({ autoSpeak: event.target.checked }) })),
+          modelSection('text', '文本模型', '可以沿用 DSH 当前默认模型，也可以配置 OpenAI 兼容的文本模型接口。',
+            h(React.Fragment, null,
+              h('div', { className: 'fm-field' }, h('label', null, '模型来源'), h(SoftSelect, {
+                value: draft.text.mode,
+                options: [{ value: 'dsh', label: '使用 DSH 默认模型' }, { value: 'custom', label: '使用自定义兼容接口' }],
+                onChange: (value) => updateModel('text', { mode: value }),
+              })),
+              draft.text.mode === 'dsh' && h('div', { className: 'fm-field' }, h('label', null, 'DSH 文本模型'), h(SoftSelect, {
+                value: draft.text.dshProvider && draft.text.dshModel ? `${draft.text.dshProvider}::${draft.text.dshModel}` : '',
+                options: [{ value: '', label: '跟随 DSH 当前默认模型' }, ...(config?.models?.availableTextModels || []).map((item) => ({
+                  value: `${item.provider}::${item.model}`, label: `${item.name || item.model}（${item.provider}）`,
+                }))],
+                onChange: (value) => {
+                  const [dshProvider = '', dshModel = ''] = value.split('::')
+                  updateModel('text', { dshProvider, dshModel })
+                },
+              })),
+              draft.text.mode === 'custom' && h('div', { className: 'fm-model-grid' },
+                inputField('text', 'baseUrl', '接口地址', { wide: true, placeholder: '例如：https://api.example.com/v1' }),
+                inputField('text', 'model', '模型名称', { placeholder: '填写文本模型 ID' }),
+                inputField('text', 'apiKey', 'API Key', { secret: true, placeholder: config?.models?.text?.keyConfigured ? '已保存；留空不修改' : '输入 API Key' }),
+              ),
+            )),
+          externalModel('tts', 'TTS 语音合成模型', '配置 OpenAI 兼容的 /audio/speech 接口；配置完成后才会自动播报。',
+            inputField('tts', 'voice', '音色', { placeholder: '例如：alloy' })),
+          externalModel('stt', 'STT 语音识别模型（可选）', '未配置不会影响录音、实时转写、文本提问或纪要生成；需要时可展开配置。'),
+          h('div', { className: 'fm-save-row' },
+            h('button', { className: 'fm-primary', disabled: savingModels, onClick: saveModels }, savingModels ? '正在保存…' : '保存模型配置'),
+            modelMessage && h('span', { className: modelMessage.startsWith('保存失败') ? 'fm-error' : 'fm-history-meta' }, modelMessage),
+          ),
+          h('div', { className: 'fm-warning' }, 'API Key 将写入 DSH 凭据服务，不会显示在页面或保存到普通配置文件。唤醒词和播报偏好仅保存在当前浏览器。'),
         ),
       )
     }
@@ -515,7 +622,6 @@ window.__ModuleLoader__.load({
         catch { return { wakeWord: '小助手', wakeEnabled: true, autoSpeak: true } }
       })
       const [voiceState, setVoiceState] = React.useState('idle')
-      const [listening, setListening] = React.useState(false)
       const [view, setView] = React.useState('meeting')
       const [historyItems, setHistoryItems] = React.useState([])
       const [historySelected, setHistorySelected] = React.useState(null)
@@ -644,7 +750,7 @@ window.__ModuleLoader__.load({
         try {
           const turn = await api('ask', { body: { meetingId: meeting.meetingId, question: value } })
           setMeeting((current) => ({ ...current, turns: [...(current?.turns || []), turn] }))
-          if (settings.autoSpeak) void playAnswer(turn.answer)
+          if (settings.autoSpeak && config?.voice?.configured) void playAnswer(turn.answer)
         } catch (reason) { setError(reason instanceof Error ? reason.message : String(reason)) }
         finally { setAsking(false) }
       }
@@ -663,34 +769,6 @@ window.__ModuleLoader__.load({
           break
         }
       }, [meeting?.segments, meeting?.phase, settings.wakeEnabled, settings.wakeWord, asking, stopping])
-
-      const voiceAsk = () => {
-        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition
-        if (!Recognition) {
-          setError('当前浏览器不支持语音提问，请使用文字提问。')
-          return
-        }
-        const recognition = new Recognition()
-        captureRef.current?.pauseTranscription()
-        recognition.lang = 'zh-CN'
-        recognition.continuous = false
-        recognition.interimResults = false
-        setListening(true)
-        recognition.onresult = (event) => {
-          const text = String(event.results?.[0]?.[0]?.transcript || '').trim()
-          setListening(false)
-          if (text) void ask(text)
-        }
-        recognition.onerror = (event) => {
-          setListening(false)
-          setError(`语音提问失败：${event.error || 'unknown'}`)
-        }
-        recognition.onend = () => {
-          setListening(false)
-          captureRef.current?.resumeTranscription()
-        }
-        recognition.start()
-      }
 
       const stop = async () => {
         if (!meeting) return
@@ -740,9 +818,9 @@ window.__ModuleLoader__.load({
             ),
             h('main', { className: 'fm-body' },
               view === 'history' && h(HistoryPanel, { items: historyItems, selected: historySelected, loading: historyLoading, onSelect: selectHistory, onBack: () => setView('meeting') }),
-              view === 'settings' && h(SettingsPanel, { settings, setSettings, config, onBack: () => setView('meeting') }),
+              view === 'settings' && h(SettingsPanel, { settings, setSettings, config, setConfig, onBack: () => setView('meeting') }),
               view === 'meeting' && !meeting && h(Home, { config, title, setTitle, browserAsrSupported, onStart: start, onHistory: openHistory, onSettings: () => setView('settings'), pending, error }),
-              view === 'meeting' && meeting && ['starting', 'recording', 'stopping'].includes(meeting.phase) && h(LiveMeeting, { meeting, level, question, setQuestion, onAsk: ask, asking, stopping, error, settings, onVoiceAsk: voiceAsk, listening, voiceState, onStopVoice: stopVoice }),
+              view === 'meeting' && meeting && ['starting', 'recording', 'stopping'].includes(meeting.phase) && h(LiveMeeting, { meeting, level, question, setQuestion, onAsk: ask, asking, stopping, error, settings, voiceState, onStopVoice: stopVoice }),
               view === 'meeting' && meeting && ['completed', 'failed'].includes(meeting.phase) && h(CompletedMeeting, { meeting, onNew: reset, onHistory: openHistory }),
             ),
           ),

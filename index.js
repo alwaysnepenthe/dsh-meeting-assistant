@@ -1,7 +1,7 @@
 import { buildMeetingMinutes } from './minutes-core.js'
 import { MeetingRuntime } from './meeting-runtime.js'
 
-export const inject = ['tools', 'systemPrompt', 'webServer', 'llm', 'clientModules', 'web', 'credentials']
+export const inject = ['tools', 'systemPrompt', 'webServer', 'llm', 'agentDefaultModel', 'clientModules', 'web', 'credentials']
 
 const inputStringArray = (description) => ({ type: 'array', description, items: { type: 'string' } })
 const outputStringArray = { type: 'array', items: { type: 'string' } }

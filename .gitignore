@@ -1,6 +1,7 @@
 node_modules/
 .npm-cache/
 *.tgz
+*.tgz.sha256
 
 # Local configuration and credentials
 .env

@@ -6,12 +6,13 @@ import { pipeline } from 'node:stream/promises'
 
 import { buildMeetingMinutes } from './minutes-core.js'
 import { HarnessModelService, normalizeSummary } from './model-service.js'
+import { MeetingModelConfiguration } from './model-config.js'
 import { VolcengineTtsVoice } from './volcengine-voice.js'
 
 const SAMPLE_RATE = 16_000
 const FRAME_SAMPLES = 800
 const MAX_PENDING_FRAMES = 400
-const MAX_BODY_BYTES = 2 * 1024 * 1024
+const MAX_BODY_BYTES = 12 * 1024 * 1024
 const MAX_LOCAL_AUDIO_QUEUE_BYTES = 32 * 1024 * 1024
 const FANDO_MEETING_BACKEND_DEFAULT = 'https://cloud.fandow.com/gpt/fando-meeting-assistant'
 
@@ -385,7 +386,9 @@ export class MeetingRuntime {
   constructor(ctx, config = {}) {
     this.ctx = ctx
     this.config = config
-    this.model = new HarnessModelService(ctx, config)
+    this.outputDir = path.resolve(String(config.outputDir || process.env.MEETING_ASSISTANT_OUTPUT_DIR || path.join(process.cwd(), 'meeting-assistant-data')))
+    this.modelConfiguration = new MeetingModelConfiguration(ctx, this.outputDir)
+    this.model = new HarnessModelService(ctx, config, this.modelConfiguration)
     this.asrFactory = typeof config.createAsr === 'function'
       ? config.createAsr
       : (options) => new FandoRealtimeAsr(options)
@@ -394,7 +397,6 @@ export class MeetingRuntime {
       : (options) => new LocalAudioRecorder(options)
     this.active = null
     this.completed = new Map()
-    this.outputDir = path.resolve(String(config.outputDir || process.env.MEETING_ASSISTANT_OUTPUT_DIR || path.join(process.cwd(), 'meeting-assistant-data')))
     this.historyDir = path.join(this.outputDir, '.history')
     this.persistChains = new Map()
     this.voice = new VolcengineTtsVoice(ctx, config, this.outputDir)
@@ -408,11 +410,28 @@ export class MeetingRuntime {
   }
 
   async status() {
+    const models = await this.modelConfiguration.publicStatus()
+    const availableTextModels = []
+    for (const provider of this.ctx.llm.listProviders()) {
+      try {
+        for (const item of await this.ctx.llm.listModels(provider.id)) {
+          availableTextModels.push({ provider: provider.id, model: item.id, name: item.name || item.id })
+        }
+      } catch (error) {
+        this.ctx.logger?.warn?.(`[meeting-assistant] failed to list models for ${provider.id}: ${error instanceof Error ? error.message : String(error)}`)
+      }
+    }
+    models.availableTextModels = availableTextModels
     let model = null
     let modelError = null
     try { model = await this.model.resolveSelection() } catch (error) { modelError = error instanceof Error ? error.message : String(error) }
     let voice = { configured: false }
-    try { voice = await this.voice.credentialStatus() } catch (error) { voice = { configured: false, error: error instanceof Error ? error.message : String(error) } }
+    try {
+      const legacyVoice = await this.voice.credentialStatus()
+      voice = models.tts.configured
+        ? { configured: true, mode: 'custom-tts', model: models.tts.model }
+        : legacyVoice
+    } catch (error) { voice = { configured: models.tts.configured, error: error instanceof Error ? error.message : String(error) } }
     return {
       ready: Boolean(model),
       asrConfigured: true,
@@ -423,7 +442,13 @@ export class MeetingRuntime {
       activeMeetingId: this.active?.meetingId ?? null,
       agent: { persona: '会议助手', webSearchAvailable: Boolean(this.ctx.web?.search) },
       voice,
+      models,
     }
+  }
+
+  async configureModels(input) {
+    await this.modelConfiguration.save(input)
+    return this.status()
   }
 
   appendEvent(meeting, type, detail = {}) {
@@ -556,8 +581,9 @@ export class MeetingRuntime {
       askedAt: nowIso(),
       question,
       answer: result.text,
-      searchQuery: result.searchQuery || null,
-      sources: Array.isArray(result.sources) ? result.sources : [],
+        searchQuery: result.searchQuery || null,
+        sources: Array.isArray(result.sources) ? result.sources : [],
+        searchWarning: result.searchWarning || null,
     }
     meeting.turns.push(turn)
     this.appendEvent(meeting, 'answer', {
@@ -709,10 +735,21 @@ export class MeetingRuntime {
   async generateVoice(input, signal) {
     const meeting = this.requireMeeting(input.meetingId)
     const text = String(input.text || '').trim()
-    const result = await this.voice.synthesize({ text, meetingId: meeting.meetingId, signal })
+    const models = await this.modelConfiguration.publicStatus()
+    const result = models.tts.configured
+      ? await this.modelConfiguration.synthesize({ text, meetingId: meeting.meetingId, signal })
+      : await this.voice.synthesize({ text, meetingId: meeting.meetingId, signal })
     this.appendEvent(meeting, 'voice_generated', { filename: result.filename, mode: result.mode })
     await this.schedulePersist(meeting)
     return result
+  }
+
+  async transcribeVoice(input, signal) {
+    return this.modelConfiguration.transcribe({
+      audioBase64: input.audioBase64,
+      mimeType: input.mimeType,
+      signal,
+    })
   }
 
   async sendVoiceFile(res, filename) {
@@ -788,6 +825,12 @@ export class MeetingRuntime {
         req.once('aborted', () => controller.abort(new Error('VOICE_REQUEST_ABORTED')))
         return json(res, 200, { ok: true, value: await this.generateVoice(body, controller.signal) })
       }
+      if (action === 'transcribe-voice') {
+        const controller = new AbortController()
+        req.once('aborted', () => controller.abort(new Error('STT_REQUEST_ABORTED')))
+        return json(res, 200, { ok: true, value: await this.transcribeVoice(body, controller.signal) })
+      }
+      if (action === 'configure-models') return json(res, 200, { ok: true, value: await this.configureModels(body) })
       if (action === 'configure-voice') return json(res, 200, { ok: true, value: await this.voice.configureAccessToken(body.accessToken) })
       if (action === 'cancel') return json(res, 200, { ok: true, value: await this.cancel(body) })
       if (action === 'stop') return json(res, 200, { ok: true, value: await this.stop(body) })

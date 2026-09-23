@@ -2,15 +2,19 @@
 
 一个可独立安装的 DeepSeek Harness Web 会议助手插件。从麦克风录音、实时转写、会中 AI 问答，到会后纪要、历史记录和 Markdown 导出，全部在一个会议工作台中完成。
 
-> 当前版本：`0.7.1`  
+> 当前版本：`0.8.2`
+>
 > 运行环境：DeepSeek Harness Web + Node.js 20+ + Chrome/Edge
+
+[更新日志](./CHANGELOG.md) · [安全与隐私](./SECURITY.md)
 
 ## 功能亮点
 
 - **实时录音与转写**：使用浏览器麦克风和内置语音识别，实时显示会议逐字稿。
 - **完整原始录音**：会议音频保存为 16 kHz 单声道 WAV，可在历史记录中播放和下载。
 - **联网 AI 助手**：结合会议上下文、通用知识和 Harness 联网搜索回答问题，并展示来源。
-- **文字与语音提问**：支持输入问题、语音提问以及自定义唤醒词。
+- **文字与唤醒词提问**：支持输入问题，也可在会议转写中通过自定义唤醒词自动提问。
+- **独立模型配置**：文本模型可跟随或选择 DSH 已有模型，也可分别配置 OpenAI 兼容的文本、STT 和 TTS 接口。
 - **语音回答**：将模型生成的文字答案原样播报，支持随时中止；云端 TTS 不可用时自动使用系统语音。
 - **结构化会议纪要**：结束会议后自动整理摘要、关键结论、待办事项、负责人、时间节点和风险争议。
 - **会议历史沉淀**：保存会议过程、逐字稿、问答、录音和最终纪要，并支持下载 Markdown。
@@ -39,17 +43,36 @@
 - 最新版 Chrome 或 Edge
 - 浏览器已允许麦克风权限
 - Harness 中已配置可用的文本模型
-- 可选：火山引擎 TTS 的 App ID、Access Token、Resource ID 和 Speaker ID
+- 可选：兼容 OpenAI API 的 TTS 或 STT 服务
 
-## 安装
+## 一键安装（Windows，推荐）
+
+确认已安装 Node.js 20+ 和 DeepSeek Harness，然后打开 PowerShell，执行：
+
+```powershell
+irm https://raw.githubusercontent.com/alwaysnepenthe/dsh-meeting-assistant/main/scripts/install.ps1 | iex
+```
+
+脚本会自动：
+
+1. 获取 GitHub 最新 Release。
+2. 下载插件 `.tgz` 安装包。
+3. 校验 Release 提供的 SHA-256。
+4. 安装到 DSH 的 `web` profile。
+
+安装完成后重启 DeepSeek Harness Web，再按 `Ctrl + F5` 刷新页面。右下角出现“记”按钮即安装成功。
+
+> 如果 PowerShell 被公司策略限制，请使用下面的手动安装方式。
+
+## 手动安装
 
 ### 使用 Release 安装包（推荐）
 
-1. 从 [v0.7.1 Release](https://github.com/alwaysnepenthe/dsh-meeting-assistant/releases/tag/v0.7.1) 下载 `meeting-assistant-dsh-meeting-minutes-0.7.1.tgz`。
-2. 在安装包所在目录执行：
+1. 从 Release 下载对应版本的 `meeting-assistant-dsh-meeting-minutes-*.tgz`。
+2. 在安装包所在目录执行（文件名请以实际下载版本为准）：
 
 ```powershell
-npx.cmd @deepseek-ai/dsh plugin --profile web add .\meeting-assistant-dsh-meeting-minutes-0.7.1.tgz
+npx.cmd @deepseek-ai/dsh plugin --profile web add .\meeting-assistant-dsh-meeting-minutes-0.8.2.tgz
 ```
 
 ### 从源码安装
@@ -60,7 +83,7 @@ cd dsh-meeting-assistant
 npm install
 npm test
 npm pack
-npx.cmd @deepseek-ai/dsh plugin --profile web add .\meeting-assistant-dsh-meeting-minutes-0.7.1.tgz
+npx.cmd @deepseek-ai/dsh plugin --profile web add .\meeting-assistant-dsh-meeting-minutes-0.8.2.tgz
 ```
 
 安装或升级插件后，请重启 DeepSeek Harness Web 服务。如果页面仍显示旧版本，可按 `Ctrl + F5` 强制刷新。
@@ -69,15 +92,30 @@ npx.cmd @deepseek-ai/dsh plugin --profile web add .\meeting-assistant-dsh-meetin
 
 1. 打开 DeepSeek Harness Web。
 2. 点击右下角的“记”进入会议助手。
-3. 可在“设置”中修改唤醒词和自动语音回答偏好。
-4. 输入会议标题，点击“开始会议”，并允许浏览器使用麦克风。
-5. 会中可以直接输入问题，或点击“语音提问”。
-6. 点击“结束会议”后，插件会生成并保存完整会议纪要。
-7. 在“历史纪要”中查看全过程、逐字稿、录音和 Markdown 文档。
+3. 第一次使用可直接选择“使用 DSH 默认模型”，无需重复填写文本模型 Key。
+4. 可在“设置”中修改唤醒词、模型和自动语音回答偏好。
+5. 输入会议标题，点击“开始会议”，并允许浏览器使用麦克风。
+6. 会中可以直接输入问题，也可以说出唤醒词和问题，让助手自动回答。
+7. 点击“结束会议”后，插件会生成并保存完整会议纪要。
+8. 在“历史纪要”中查看全过程、逐字稿、录音和 Markdown 文档。
 
 ## 配置
 
-插件会自动使用 Harness 中可用的文本模型，也可以在插件配置中固定提供商、模型、人格和数据目录：
+### 文本模型
+
+进入会议助手的“设置”页面：
+
+- **使用 DSH 默认模型**：最省事，直接复用 DSH 已经配置好的模型与 Key。
+- **选择 DSH 文本模型**：从 DSH 已有模型列表中固定选择一个模型。
+- **使用自定义兼容接口**：填写 OpenAI 兼容的接口地址、模型名称和 API Key。
+
+### TTS 与 STT
+
+- TTS 为可选项，配置后模型答案可以自动播报；未配置时正常显示文字回答。
+- STT 为预留的可选接口，未配置不会影响浏览器实时转写、文本提问、录音或纪要生成。
+- 模型配置区可展开或收起，绿色 `✓` 表示已配置，灰色 `○` 表示未配置。
+
+也可以在插件配置中固定 DSH 提供商、模型、人格和数据目录：
 
 ```yaml
 - id: meeting-assistant
@@ -91,21 +129,14 @@ npx.cmd @deepseek-ai/dsh plugin --profile web add .\meeting-assistant-dsh-meetin
 
 默认数据目录为 Harness 启动目录下的 `meeting-assistant-data`，也可通过环境变量 `MEETING_ASSISTANT_OUTPUT_DIR` 修改。
 
-### 火山引擎语音播报
+### Key 安全
 
-插件使用标准单人 TTS，确保播报内容与模型文字答案一致：
+- API Key 只应在插件设置页填写，并由 DSH 凭据服务保存。
+- 普通模型配置文件只保存接口地址、模型名和音色，不保存明文 Key。
+- 页面只会获知 Key 是否已配置，不会读取或回显 Key。
+- 切勿将真实 Key 写入 YAML、README、截图、Issue、日志或 Git 仓库。
 
-```yaml
-- id: meeting-assistant
-  name: '@meeting-assistant/dsh-meeting-minutes'
-  config:
-    volcengineAppId: '你的 App ID'
-    volcengineAccessTokenEnv: 'MEETING_ASSISTANT_VOLCENGINE_ACCESS_TOKEN'
-    volcengineTtsResourceId: 'volc.service_type.10029'
-    volcengineSpeaker: 'zh_male_shenyeboke_moon_bigtts'
-```
-
-请通过 Harness 凭据服务保存 Access Token，不要把真实密钥写入配置文件、源码或 Git 仓库。云端 TTS 暂时不可用时，插件会自动使用浏览器系统语音朗读答案。
+更多说明见 [SECURITY.md](./SECURITY.md)。
 
 ## 本地数据
 
@@ -145,6 +176,10 @@ meeting-assistant-data/
 ### 安装后看不到入口
 
 重启 Harness Web 服务，再按 `Ctrl + F5` 刷新页面。
+
+### 联网提问出现鉴权错误
+
+联网搜索使用 DSH 自己的搜索配置，与插件的文本模型配置相互独立。插件会在搜索失败时自动改用文本模型回答，但实时天气、新闻等内容可能不是最新。请在 DSH 的插件配置中检查 Web Search 的地址和 Key。
 
 ## 开发与测试
 

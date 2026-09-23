@@ -35,27 +35,43 @@ function normalizeSummary(value) {
   }
 }
 
+function renderFinishReason(reason) {
+  if (reason == null) return 'unknown'
+  if (typeof reason === 'string') return reason
+  try { return JSON.stringify(reason) }
+  catch { return String(reason) }
+}
+
 export class HarnessModelService {
-  constructor(ctx, config = {}) {
+  constructor(ctx, config = {}, modelConfiguration = null) {
     this.ctx = ctx
     this.config = config
+    this.modelConfiguration = modelConfiguration
   }
 
   async resolveSelection() {
+    const custom = await this.modelConfiguration?.customTextSelection?.()
+    if (custom) return { provider: 'meeting-assistant-custom', model: custom.model }
+    const configuredDshSelection = await this.modelConfiguration?.dshTextSelection?.()
+    if (configuredDshSelection) return configuredDshSelection
     const configuredProvider = String(this.config.provider || process.env.FANDO_MEETING_PROVIDER || '').trim()
     const configuredModel = String(this.config.model || process.env.FANDO_MEETING_MODEL || '').trim()
     if (configuredProvider && configuredModel) return { provider: configuredProvider, model: configuredModel }
 
+    const defaultSelection = this.ctx.agentDefaultModel?.currentSelection?.()
     const providers = this.ctx.llm.listProviders()
-    const provider = configuredProvider || providers[0]?.id
+    const provider = configuredProvider || defaultSelection?.provider || providers[0]?.id
     if (!provider) throw new Error('DSH_MODEL_PROVIDER_NOT_CONFIGURED')
     const models = await this.ctx.llm.listModels(provider)
-    const model = configuredModel || models[0]?.id
+    const defaultModel = defaultSelection?.provider === provider ? defaultSelection.model : null
+    const model = configuredModel || defaultModel || models[0]?.id
     if (!model) throw new Error('DSH_MODEL_NOT_CONFIGURED')
     return { provider, model }
   }
 
   async complete({ system, prompt, signal, maxTokens = 1600 }) {
+    const custom = await this.modelConfiguration?.customTextSelection?.()
+    if (custom) return this.modelConfiguration.completeText({ system, prompt, signal, maxTokens })
     const selection = await this.resolveSelection()
     let text = ''
     let finishReason = null
@@ -71,7 +87,7 @@ export class HarnessModelService {
       if (chunk.type === 'text-delta') text += chunk.text
       if (chunk.type === 'finish') finishReason = chunk.reason
     }
-    if (!text.trim()) throw new Error(`DSH_MODEL_EMPTY_RESPONSE:${String(finishReason ?? 'unknown')}`)
+    if (!text.trim()) throw new Error(`DSH_MODEL_EMPTY_RESPONSE:${renderFinishReason(finishReason)}`)
     return { text: text.trim(), selection }
   }
 
@@ -115,7 +131,30 @@ export class HarnessModelService {
       })
       return { ...fallback, sources: [], searchQuery }
     }
-    const searched = await this.ctx.web.search({ query: searchQuery, maxResults: 6 }, signal)
+    let searched
+    try {
+      searched = await this.ctx.web.search({ query: searchQuery, maxResults: 6 }, signal)
+    } catch (error) {
+      const fallback = await this.complete({
+        system: persona,
+        prompt: [
+          `会议标题：${title}`,
+          transcript ? `会议转写（可作为会议事实）：\n${transcript}` : '',
+          history ? `此前交互：\n${history}` : '',
+          `用户问题：${question}`,
+          `原计划联网检索：${searchQuery}`,
+          '联网搜索当前失败。请基于稳定知识给出仍然有帮助的回答，并明确说明实时信息暂时无法核验；不要编造实时数据。',
+        ].filter(Boolean).join('\n\n'),
+        signal,
+        maxTokens: 1400,
+      })
+      return {
+        ...fallback,
+        sources: [],
+        searchQuery,
+        searchWarning: 'WEB_SEARCH_UNAVAILABLE',
+      }
+    }
     const sources = Array.isArray(searched?.sources) ? searched.sources.slice(0, 6) : []
     const sourceText = [String(searched?.content || '').trim(), ...sources.map((source, index) => {
       const titleValue = String(source?.title || source?.name || `来源 ${index + 1}`)
